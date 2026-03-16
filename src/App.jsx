@@ -1,5 +1,5 @@
 import './App.css'
-import Main from './Layout/Main'
+import Page from './Layout/Page'
 import Sidebar from './Layout/Sidebar'
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   return (
     <div className='min-h-screen flex flex-col lg:flex-row'>
       <Sidebar />
-      <Main/>
+      <Page/>
     </div>
   )
 }
