@@ -3,7 +3,7 @@ import KanbanBoard from "../KanbanBoard/KanbanBoard";
 import Header from "./Header";
 import AddTaskForm from "../KanbanBoard/AddTaskForm";
 
-export default function Main(){
+export default function Page(){
     const [showModal, setShowModal] = useState(false);
 
     const handleShowModal = () => {
@@ -15,7 +15,7 @@ export default function Main(){
     }
 
     return (
-        <main class="flex-1 flex flex-col min-h-0 relative">
+        <main className="flex-1 flex flex-col min-h-0 relative">
             {
                 showModal && <AddTaskForm onClose={handleCloseModal} />
             }
