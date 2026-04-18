@@ -1,7 +1,9 @@
 import { categoryStyles } from "../data/kanbanData";
+import { useState } from "react";
 import TaskAction from "./TaskAction";
 
 export default function SingleTask({task, taskName}){
+  const [isOpenActionMenu, setIsOpenActionMenu] = useState(false);
     const style = categoryStyles[task.tag] || categoryStyles.Default
     return (
         <div
@@ -14,7 +16,7 @@ export default function SingleTask({task, taskName}){
             data-card-menu-container
           >
             <button
-              type="button"
+              type="button" onClick={() => setIsOpenActionMenu(prev => !prev)}
               className="p-1 rounded-full hover:bg-gray-100 hover:text-gray-700 focus:outline-none"
               data-card-menu-toggle={`${task.name}-menu`}
               aria-label="Open card menu"
@@ -23,7 +25,7 @@ export default function SingleTask({task, taskName}){
                 <path d="M8 3a1.25 1.25 0 110-2.5A1.25 1.25 0 018 3zm0 6.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm0 6.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" />
               </svg>
             </button>
-            <TaskAction taskName={task.name}/>
+            {isOpenActionMenu && <TaskAction taskName={task.name}/>}
           </div>
           <div className="mb-3">
             <h3 className="font-semibold text-gray-900 text-sm">{task.name}</h3>
