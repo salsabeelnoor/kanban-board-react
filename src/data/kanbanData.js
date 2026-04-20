@@ -105,7 +105,7 @@ const boardData = {
 }
 
 function getAllData() {
-    return boardData
+    return boardData;
 }
  
 export { getAllData, categoryStyles }

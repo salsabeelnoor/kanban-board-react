@@ -1,7 +1,11 @@
 import Filter from "./Filter";
 import SingleTask from "./SingleTask";
+import TaskContext from "../context/TaskContext";
+import { useContext } from "react";
 
-export default function TaskColumn({ name, tasks }) {
+export default function TaskColumn({ name }) {
+  const { state } = useContext(TaskContext);
+  const tasks = state[name] || [];
   return (
     <div className="flex-1 flex flex-col min-w-0 w-full">
       <div className="flex items-center gap-3 mb-6">
@@ -18,7 +22,7 @@ export default function TaskColumn({ name, tasks }) {
       <div className="space-y-4 flex-1 overflow-visible lg:overflow-y-auto">
         {
           tasks.map((task, i) => (
-            <SingleTask key={i} task={task} taskName={name} />
+            <SingleTask key={i} taskId={task.id} columnName={name} />
           ))
         }
       </div>

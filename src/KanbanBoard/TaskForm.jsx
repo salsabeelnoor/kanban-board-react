@@ -1,4 +1,8 @@
-export default function AddTaskForm({onClose}) {
+// import TaskContext from "../context/TaskContext";
+// import { useContext } from "react";
+export default function TaskForm({onClose}) {
+
+  // const { state: taskData } = useContext(TaskContext);
   return (
     <div className="bg-gray-50 min-h-screen w-full absolute left-0 top-0 z-10">
       <div className="max-w-4xl mx-auto px-4 py-10 sm:py-12">
