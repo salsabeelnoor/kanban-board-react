@@ -7,9 +7,9 @@ export default function SingleTask({ taskId, columnName }) {
 
   const { state } = useContext(TaskContext);
   const task = state[columnName].find((task) => task.id === taskId);
-
+  console.log("task", task);
   const [isOpenActionMenu, setIsOpenActionMenu] = useState(false);
-  const style = categoryStyles[task.tag] || categoryStyles.Default;
+  const style = categoryStyles[task.category] || categoryStyles.Default;
   
   return (
     <div

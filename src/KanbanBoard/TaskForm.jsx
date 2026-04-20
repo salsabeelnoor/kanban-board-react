@@ -1,8 +1,7 @@
-// import TaskContext from "../context/TaskContext";
-// import { useContext } from "react";
+import TaskContext from "../context/TaskContext";
+import { useContext } from "react";
 export default function TaskForm({onClose}) {
-
-  // const { state: taskData } = useContext(TaskContext);
+  const { categoryStyles, state: tasks } = useContext(TaskContext);
   return (
     <div className="bg-gray-50 min-h-screen w-full absolute left-0 top-0 z-10">
       <div className="max-w-4xl mx-auto px-4 py-10 sm:py-12">
@@ -83,15 +82,12 @@ export default function TaskForm({onClose}) {
                   name="tag"
                   className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                 >
-                  <option value="design">Design</option>
-                  <option value="operations">Operations</option>
-                  <option value="marketing">Marketing</option>
-                  <option value="creative">Creative</option>
-                  <option value="development">Development</option>
-                  <option value="backend">Backend</option>
-                  <option value="setup">Setup</option>
-                  <option value="infrastructure">Infrastructure</option>
-                  <option value="documentation">Documentation</option>
+                  {
+                    
+                    Object.keys(categoryStyles).map((category) => (
+                      <option key={category} value={category}>{category}</option>
+                    ))
+                  }
                 </select>
               </div>
 
@@ -122,9 +118,11 @@ export default function TaskForm({onClose}) {
                   name="status"
                   className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                 >
-                  <option value="todo">To-do</option>
-                  <option value="in-progress">In Progress</option>
-                  <option value="done">Done</option>
+                  {
+                    Object.keys(tasks).map((status) => (
+                      <option key={status} value={status}>{status}</option>
+                    ))
+                  }
                 </select>
               </div>
             </div>

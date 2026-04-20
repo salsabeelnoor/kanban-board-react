@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import { getAllData } from "../data/kanbanData";
+import { getAllData, categoryStyles } from "../data/kanbanData";
 import { taskReducer } from "../reducer/taskReducer";
 
 const TaskContext = createContext();
@@ -9,7 +9,7 @@ export function TaskProvider({ children }) {
   const [state, dispatch] = useReducer(taskReducer, initialState);
 
   return (
-    <TaskContext.Provider value={{ state, dispatch }}>
+    <TaskContext.Provider value={{ state, dispatch, categoryStyles }}>
       {children}
     </TaskContext.Provider>
   );
