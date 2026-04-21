@@ -1,7 +1,50 @@
 import TaskContext from "../context/TaskContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 export default function TaskForm({onClose}) {
-  const { categoryStyles, state: tasks } = useContext(TaskContext);
+  const { categoryStyles, state: tasks, dispatch } = useContext(TaskContext);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: Object.keys(categoryStyles)[0],
+    status: Object.keys(tasks)[0],
+    dueDate: "",
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newTask = {
+      id: crypto.randomUUID(),
+      name: formData.title,
+      description: formData.description,
+      category: formData.category,
+    }
+
+    dispatch({
+      type: "ADD_TASK",
+      payload: {
+        column: formData.status,
+        task: newTask,
+      }
+    });
+    setFormData({
+      title: "",
+      description: "",
+      category: Object.keys(categoryStyles)[0],
+      status: Object.keys(tasks)[0],
+      dueDate: "",
+    })
+    onClose({preventDefault: () => {}});
+  }
+
+
   return (
     <div className="bg-gray-50 min-h-screen w-full absolute left-0 top-0 z-10">
       <div className="max-w-4xl mx-auto px-4 py-10 sm:py-12">
@@ -34,7 +77,7 @@ export default function TaskForm({onClose}) {
         </div>
 
         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8">
-          <form className="space-y-8">
+          <form className="space-y-8" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-6">
               <div>
                 <label
@@ -43,10 +86,11 @@ export default function TaskForm({onClose}) {
                 >
                   Task Title
                 </label>
-                <input
+                <input onChange={handleChange}
                   type="text"
                   id="title"
                   name="title"
+                  value={formData.title}
                   placeholder="e.g. Wireframes"
                   className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none"
                   required
@@ -60,9 +104,10 @@ export default function TaskForm({onClose}) {
                 >
                   Task Subtitle / Description
                 </label>
-                <input
+                <input onChange={handleChange}
                   id="description"
                   name="description"
+                  value={formData.description}
                   placeholder="Add context or acceptance criteria"
                   className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none"
                 />
@@ -77,9 +122,10 @@ export default function TaskForm({onClose}) {
                 >
                   Tag
                 </label>
-                <select
+                <select onChange={handleChange}
                   id="tag"
-                  name="tag"
+                  name="category"
+                  value={formData.category}
                   className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                 >
                   {
@@ -98,10 +144,11 @@ export default function TaskForm({onClose}) {
                 >
                   Due Date
                 </label>
-                <input
+                <input onChange={handleChange}
                   type="date"
                   id="date"
                   name="date"
+                  value={formData.dueDate}
                   className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                 />
               </div>
@@ -113,9 +160,10 @@ export default function TaskForm({onClose}) {
                 >
                   Status
                 </label>
-                <select
+                <select onChange={handleChange}
                   id="status"
                   name="status"
+                  value={formData.status}
                   className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                 >
                   {
@@ -135,7 +183,7 @@ export default function TaskForm({onClose}) {
                 Cancel
               </a>
               <button
-                type="submit"
+                type="submit" 
                 className="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-800"
               >
                 Add Task
