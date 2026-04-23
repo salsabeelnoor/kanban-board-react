@@ -1,16 +1,17 @@
 import { categoryStyles } from "../data/kanbanData";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import TaskAction from "./TaskAction";
 import TaskContext from "../context/TaskContext";
-import { useContext } from "react";
-export default function SingleTask({ taskId, columnName }) {
-
-  const { state } = useContext(TaskContext);
-  const task = state[columnName].find((task) => task.id === taskId);
-  console.log("task", task);
+export default function SingleTask({ task, columnName }) {
+  const { onEditFormOpen } = useContext(TaskContext);
   const [isOpenActionMenu, setIsOpenActionMenu] = useState(false);
   const style = categoryStyles[task.category] || categoryStyles.Default;
   
+  const handleEditFormOpen = (task, columnName) => {
+    onEditFormOpen(task, columnName);
+    setIsOpenActionMenu(false);
+  };
+
   return (
     <div
       className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow relative"
@@ -32,7 +33,7 @@ export default function SingleTask({ taskId, columnName }) {
             <path d="M8 3a1.25 1.25 0 110-2.5A1.25 1.25 0 018 3zm0 6.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm0 6.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" />
           </svg>
         </button>
-        {isOpenActionMenu && <TaskAction taskName={task.name} />}
+        {isOpenActionMenu && <TaskAction editFormOpen={handleEditFormOpen} task={task} columnName={columnName} />}
       </div>
       <div className="mb-3">
         <h3 className="font-semibold text-gray-900 text-sm">{task.name}</h3>

@@ -2,10 +2,11 @@ import { useState } from "react";
 import KanbanBoard from "../KanbanBoard/KanbanBoard";
 import Header from "./Header";
 import TaskForm from "../KanbanBoard/TaskForm";
+import TaskContext from "../context/TaskContext";
+import EditForm from "../KanbanBoard/EditForm";
 
 export default function Page(){
     const [showModal, setShowModal] = useState(false);
-
     const handleShowModal = () => {
         setShowModal(true);
     }
@@ -16,6 +17,7 @@ export default function Page(){
 
     return (
         <main className="flex-1 flex flex-col min-h-0 relative">
+
             {
                 showModal && <TaskForm onClose={handleCloseModal} />
             }

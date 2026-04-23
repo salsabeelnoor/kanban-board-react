@@ -22,7 +22,7 @@ export default function TaskColumn({ name }) {
       <div className="space-y-4 flex-1 overflow-visible lg:overflow-y-auto">
         {
           tasks.map((task, i) => (
-            <SingleTask key={i} taskId={task.id} columnName={name} />
+            <SingleTask key={i} task={task} columnName={name} />
           ))
         }
       </div>
