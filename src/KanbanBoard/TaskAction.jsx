@@ -1,5 +1,20 @@
 import TaskContext from "../context/TaskContext";
+import { useContext } from "react";
 export default function TaskAction({editFormOpen, task, columnName}) {
+  const {state, dispatch} = useContext(TaskContext);
+  const otherColumns = Object.keys(state).filter(col => col !== columnName);
+  const handleMoveTask = (newColumn) => {
+    dispatch({
+      type: "EDIT TASK",
+      payload: {
+        column: columnName,
+        task: {
+          ...task,
+          status: newColumn
+        }
+      }
+    })
+  }
   
   return (
     <div
@@ -10,18 +25,15 @@ export default function TaskAction({editFormOpen, task, columnName}) {
       <p className="px-4 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
         Move to
       </p>
-      <button
-        type="button"
-        className="w-full text-left px-4 py-2 hover:bg-gray-50 cursor-pointer"
-      >
-        In Progress
-      </button>
-      <button
-        type="button"
-        className="w-full text-left px-4 py-2 hover:bg-gray-50 cursor-pointer"
-      >
-        Done
-      </button>
+      {
+        otherColumns.map((col) => (
+          <button type="button" key={col} onClick={() => handleMoveTask(col)}
+          className="w-full text-left px-4 py-2 hover:bg-gray-50 cursor-pointer"
+          >
+            {col}
+          </button>
+        ))
+      }
       <div className="border-t border-gray-100 mt-2 pt-2 space-y-1">
         <button onClick={() => editFormOpen(task, columnName)}
           type="button"
