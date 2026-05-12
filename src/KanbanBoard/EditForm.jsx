@@ -4,7 +4,7 @@ export default function EditForm({onClose, task, columnName}) {
   const { categoryStyles, state: tasks, dispatch } = useContext(TaskContext);
 
   const [formData, setFormData] = useState({
-    title: task.name,
+    name: task.name,
     description: task.description,
     category: task.category,
     status: columnName,
@@ -12,14 +12,27 @@ export default function EditForm({onClose, task, columnName}) {
   })
 
   const handleChange = (e) => {
-
+    const {name, value} = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    dispatch({
+      type: "EDIT TASK",
+      payload: {
+        column: columnName,
+        task: {
+          ...task,
+          ...formData
+        }
+      }
+    })
     setFormData({
-      title: "",
+      name: "",
       description: "",
       category: Object.keys(categoryStyles)[0],
       status: Object.keys(tasks)[0],
@@ -73,8 +86,8 @@ export default function EditForm({onClose, task, columnName}) {
                 <input onChange={handleChange}
                   type="text"
                   id="title"
-                  name="title"
-                  value={formData.title}
+                  name="name"
+                  value={formData.name}
                   placeholder="e.g. Wireframes"
                   className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none"
                   required
@@ -131,7 +144,7 @@ export default function EditForm({onClose, task, columnName}) {
                 <input onChange={handleChange}
                   type="date"
                   id="date"
-                  name="date"
+                  name="dueDate"
                   value={formData.dueDate}
                   className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                 />
