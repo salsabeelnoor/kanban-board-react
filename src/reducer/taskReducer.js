@@ -29,6 +29,15 @@ export function taskReducer(state, action) {
       }
     }
 
+    case "DELETE TASK" : {
+      const {column, task} = action.payload;
+      const columnTasks = state[column].filter((t) => t.id !== task.id);
+      return {
+        ...state,
+        [column]: columnTasks
+      }
+    }
+
     default:
       return state;
   }

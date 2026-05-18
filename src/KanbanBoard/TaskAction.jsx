@@ -1,6 +1,6 @@
 import TaskContext from "../context/TaskContext";
 import { useContext } from "react";
-export default function TaskAction({editFormOpen, task, columnName}) {
+export default function TaskAction({editFormOpen, task, columnName, deleteTask}) {
   const {state, dispatch} = useContext(TaskContext);
   const otherColumns = Object.keys(state).filter(col => col !== columnName);
   const handleMoveTask = (newColumn) => {
@@ -44,6 +44,7 @@ export default function TaskAction({editFormOpen, task, columnName}) {
         <button
           type="button"
           className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 cursor-pointer"
+          onClick={() => deleteTask(task, columnName)}
         >
           Delete Card
         </button>

@@ -3,13 +3,27 @@ import { useState, useContext } from "react";
 import TaskAction from "./TaskAction";
 import TaskContext from "../context/TaskContext";
 export default function SingleTask({ task, columnName }) {
-  const { onEditFormOpen } = useContext(TaskContext);
+  const { onEditFormOpen, onEditFormClose ,  dispatch } = useContext(TaskContext)
   const [isOpenActionMenu, setIsOpenActionMenu] = useState(false);
   const style = categoryStyles[task.category] || categoryStyles.Default;
   
   const handleEditFormOpen = (task, columnName) => {
     onEditFormOpen(task, columnName);
     setIsOpenActionMenu(false);
+  };
+
+  const handleDeleteTask = (task, columnName) => {
+    // Implementation for deleting task
+    onEditFormClose();
+    setIsOpenActionMenu(false);
+    dispatch({
+      type: "DELETE TASK",
+      payload: {
+        column: columnName,
+        task: task
+      }
+    })
+    
   };
 
   return (
@@ -33,7 +47,12 @@ export default function SingleTask({ task, columnName }) {
             <path d="M8 3a1.25 1.25 0 110-2.5A1.25 1.25 0 018 3zm0 6.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm0 6.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" />
           </svg>
         </button>
-        {isOpenActionMenu && <TaskAction editFormOpen={handleEditFormOpen} task={task} columnName={columnName} />}
+        {isOpenActionMenu && 
+        <TaskAction 
+        editFormOpen={handleEditFormOpen} 
+        task={task} 
+        columnName={columnName}
+        deleteTask={handleDeleteTask} />}
       </div>
       <div className="mb-3">
         <h3 className="font-semibold text-gray-900 text-sm">{task.name}</h3>
