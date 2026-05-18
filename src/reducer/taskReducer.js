@@ -42,3 +42,24 @@ export function taskReducer(state, action) {
       return state;
   }
 }
+
+export function sortTasks(tasks, sortBy) {
+  if(!sortBy || !Array.isArray(tasks)) return tasks;
+
+  const sortedTasks = [...tasks];
+
+  if (sortBy === "newest") {
+    sortedTasks.sort((a, b) => {
+      const dateA = new Date(a.createdAt || 0);
+      const dateB = new Date(b.createdAt || 0);
+      return dateB - dateA; // Newest first
+    });
+  } else if (sortBy === "oldest") {
+    sortedTasks.sort((a, b) => {
+      const dateA = new Date(a.createdAt || 0);
+      const dateB = new Date(b.createdAt || 0);
+      return dateA - dateB; // Oldest first
+    });
+  }
+  return sortedTasks;
+}

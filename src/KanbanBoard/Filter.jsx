@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import TaskContext from "../context/TaskContext";
 
 export default function Filter(){
   const [openMenu, setOpenMenu] = useState(null);
+
+  const {sortBy, handleSort} = useContext(TaskContext);
+
   const toggleMenu = (menuName) => {
     console.log("menuName", menuName);
     setOpenMenu((prev) => (prev === menuName ? null : menuName));
     console.log("open Menu", openMenu);
+  }
+
+  const handleSortChange = (sortType) => {
+    handleSort(sortType);
   }
     return (
         <div className="ml-auto flex items-center gap-2">
@@ -96,16 +104,16 @@ export default function Filter(){
                     Sort by date
                   </p>
                   <button
-                    type="button"
+                    type="button" onClick={() => handleSortChange("newest")}
                     className="w-full text-left px-4 py-2 hover:bg-gray-50"
                   >
-                    Newest first
+                    {sortBy === "newest" && "✓ "} Newest first
                   </button>
                   <button
-                    type="button"
+                    type="button" onClick={() => handleSortChange("oldest")}
                     className="w-full text-left px-4 py-2 hover:bg-gray-50"
                   >
-                    Oldest first
+                    {sortBy === "oldest" && "✓ "}Oldest first
                   </button>
                 </div>
               ) 

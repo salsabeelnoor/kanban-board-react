@@ -10,7 +10,8 @@ export function TaskProvider({ children }) {
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
   const [editingColumn, setEditingColumn] = useState(null);
-  
+  const [sortBy, setSortBy] = useState(null);
+
   const onEditFormOpen = (task, columnName) => {
     setIsEditFormOpen(true);
     setTaskToEdit(task);
@@ -22,6 +23,11 @@ export function TaskProvider({ children }) {
     setTaskToEdit(null);
     setEditingColumn(null);
   }
+
+  const handleSort = (sortType) => {
+    setSortBy(sortType);
+  }
+
   return (
     <TaskContext.Provider value={{ 
       state, 
@@ -30,8 +36,10 @@ export function TaskProvider({ children }) {
       isEditFormOpen,
       taskToEdit,
       editingColumn,
+      sortBy,
       onEditFormOpen,
-      onEditFormClose
+      onEditFormClose,
+      handleSort
        }}>
       {children}
     </TaskContext.Provider>

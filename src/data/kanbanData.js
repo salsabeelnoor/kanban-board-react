@@ -48,18 +48,21 @@ const boardData = {
             "name": "Wireframes",
             "description": "Set up high-fidelity prototypes with conditional logic",
             "category": "Design",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
             "id": crypto.randomUUID(),
             "name": "Data Entry",
             "description": "Data Entry Cleanup and validation",
             "category": "Operations",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
             "id": crypto.randomUUID(),
             "name": "Social Media",
             "description": "Social Media Scheduling and posting",
             "category": "Marketing",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
     ],
     "In Progress" : [
@@ -68,18 +71,21 @@ const boardData = {
             "name": "Graphic Design",
             "description": "Graphic Design Edits and refinements",
             "category": "Creative",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
             "id": crypto.randomUUID(),
             "name": "Presentation",
             "description": "Presentation Slide Design",
             "category": "Development",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
             "id": crypto.randomUUID(),
             "name": "API Integration",
             "description": "Integrate payment gateway APIs",
             "category": "Backend",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
     ],
     "Done" : [
@@ -88,18 +94,21 @@ const boardData = {
             "name": "Software Installation",
             "description": "Install and configure development tools",
             "category": "Setup",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
             "id": crypto.randomUUID(),
             "name": "Database Design",
             "description": "Database schema and optimization",
             "category": "Infrastructure",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
             "id": crypto.randomUUID(),
             "name": "Documentation",
             "description": "Complete API documentation",
             "category": "Documentation",
+            "createdAt": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         },
     ]
 }

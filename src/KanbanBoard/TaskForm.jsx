@@ -7,7 +7,7 @@ export default function TaskForm({onClose}) {
     description: "",
     category: Object.keys(categoryStyles)[0],
     status: Object.keys(tasks)[0],
-    dueDate: "",
+    "createdAt": new Date().toISOString(),
   })
 
   const handleChange = (e) => {
@@ -25,6 +25,7 @@ export default function TaskForm({onClose}) {
       name: formData.title,
       description: formData.description,
       category: formData.category,
+      createdAt: new Date().toISOString(),
     }
 
     dispatch({
@@ -39,7 +40,7 @@ export default function TaskForm({onClose}) {
       description: "",
       category: Object.keys(categoryStyles)[0],
       status: Object.keys(tasks)[0],
-      dueDate: "",
+      createdAt: new Date().toISOString(),
     })
     onClose({preventDefault: () => {}});
   }
