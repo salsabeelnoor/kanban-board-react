@@ -12,6 +12,12 @@ export function TaskProvider({ children }) {
   const [editingColumn, setEditingColumn] = useState(null);
   const [sortBy, setSortBy] = useState(null);
 
+  const [columnFilter, setColumnFilter] = useState({
+    "To-do": null,
+    "In Progress": null,
+    "Done": null
+  })
+  
   const onEditFormOpen = (task, columnName) => {
     setIsEditFormOpen(true);
     setTaskToEdit(task);
@@ -28,6 +34,15 @@ export function TaskProvider({ children }) {
     setSortBy(sortType);
   }
 
+  const handleColumnFilter = (columnName, filterValue) => {
+    setColumnFilter((prev) => (
+      {
+        ...prev,
+        [columnName]: filterValue === prev[columnName] ? null : filterValue
+      }
+    ))
+  }
+
   return (
     <TaskContext.Provider value={{ 
       state, 
@@ -37,6 +52,8 @@ export function TaskProvider({ children }) {
       taskToEdit,
       editingColumn,
       sortBy,
+      columnFilter,
+      handleColumnFilter,
       onEditFormOpen,
       onEditFormClose,
       handleSort
